@@ -38,11 +38,11 @@ will make an angle-log of the direction and angle
 
 `HyperLog.log(ship).angle("rotation", ship.get_node("gun"))`
 
-will log the rotation of the ship's gun to the panel of the ship
+will log the rotation of the ship's gun to the log-panel of the ship
 
 `HyperLog.log(ship).offset(Vector2(200, -20))`
 
-will offset the panel with (200, -20)
+will offset the panel by (200, -20)
 
 `HyperLog.log(ship).align(HALIGN_RIGHT, VALIGN_CENTER)`
 
