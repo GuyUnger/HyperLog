@@ -1,0 +1,65 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://addons/hyperlog/log_container.gd" type="Script" id=1]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+void fragment(){
+	COLOR = textureLod(SCREEN_TEXTURE, SCREEN_UV, 2.0);
+	COLOR.a = texture(TEXTURE, UV).a;
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="Theme" id=4]
+PanelContainer/styles/panel = SubResource( 3 )
+
+[node name="log_container" type="PanelContainer"]
+self_modulate = Color( 0.690196, 0.690196, 0.690196, 1 )
+material = SubResource( 2 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1180.0
+margin_bottom = -704.0
+rect_min_size = Vector2( 10, 0 )
+size_flags_vertical = 15
+theme = SubResource( 4 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="container" type="VBoxContainer" parent="."]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 92.0
+margin_bottom = 8.0
+size_flags_vertical = 15
+
+[node name="name" type="Label" parent="container"]
+visible = false
+margin_right = 186.0
+margin_bottom = 14.0
+size_flags_horizontal = 11
+
+[node name="prints" type="RichTextLabel" parent="container"]
+visible = false
+margin_right = 186.0
+margin_bottom = 15.0
+rect_min_size = Vector2( 200, 0 )
+bbcode_enabled = true
+fit_content_height = true
+scroll_active = false
