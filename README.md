@@ -1,6 +1,6 @@
 # HyperLog
 
-allows you to easily log and graph information obout objects in godot
+allows you to easily log and graph information about objects in godot
 
 https://youtu.be/tZ3UGLp86l8
 
