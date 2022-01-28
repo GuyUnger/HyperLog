@@ -2,6 +2,8 @@
 
 allows you to easily log and graph information obout objects in godot
 
+https://youtu.be/tZ3UGLp86l8
+
 examples:
 
 our space-ship has the the following variables:
