@@ -11,7 +11,7 @@ func _init():
 	set_height(80)
 
 func add_tracker(property:String = "rotation", object:Node = null)->ValueTracker:
-	return .add_tracker(property, object)
+	return super.add_tracker(property, object)
 
 func _physics_process(delta):
 	if not container.tracking: return
@@ -47,7 +47,7 @@ func _draw():
 			var current_angle = tracker.backlog[0]
 			if current_angle is Vector2:
 				current_angle = current_angle.angle()
-			draw_line(center, Vector2.RIGHT.rotated(current_angle) * radius + center, HyperLog.colors[j], 2, true)
+			draw_line(center, Vector2.RIGHT.rotated(current_angle) * radius + center, HyperLog.colors[j], 2.0)
 	
 	draw_circle(center, radius, Color(1, 1, 1, .1))
 
@@ -92,7 +92,7 @@ func angle_towards(from:float, to:float, delta:float):
 
 func set_height(value:float)->Tracker:
 	rect_min_size.x = value
-	return .set_height(value)
+	return super.set_height(value)
 
 
 #func polarize(position):

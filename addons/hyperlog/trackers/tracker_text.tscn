@@ -1,20 +1,24 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://b2ruvai7s20lh"]
 
-[ext_resource path="res://addons/hyperlog/trackers/tracker_text.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://addons/hyperlog/trackers/tracker_text.gd" id="1"]
 
 [node name="Control" type="HBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 1 )
+offset_right = -824.0
+offset_bottom = -500.0
+script = ExtResource( "1" )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="name_container" type="VBoxContainer" parent="."]
-modulate = Color( 0.584314, 0.584314, 0.584314, 1 )
-margin_bottom = 720.0
+modulate = Color(0.584314, 0.584314, 0.584314, 1)
+offset_right = 196.0
+offset_bottom = 100.0
+size_flags_horizontal = 3
 
 [node name="value_container" type="VBoxContainer" parent="."]
-margin_left = 4.0
-margin_right = 4.0
-margin_bottom = 720.0
+offset_left = 200.0
+offset_right = 200.0
+offset_bottom = 100.0

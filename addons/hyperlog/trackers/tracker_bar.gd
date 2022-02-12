@@ -17,7 +17,7 @@ func _process(delta):
 		bar.value = value
 
 func add_tracker(property:String, node:Node)->ValueTracker:
-	var tracker = .add_tracker(property, node)
+	var tracker = super.add_tracker(property, node)
 	var label = Label.new()
 	add_child(label)
 	label.text = tracker.property_name

@@ -27,7 +27,7 @@ func add_tracker(property:String, node:Node)->ValueTracker:
 	return tracker
 
 func remove_tracker(tracker):
-	trackers.remove(tracker)
+	trackers.remove_at(tracker)
 
 func set_height(value:float)->Tracker:
 	rect_min_size.y = value
