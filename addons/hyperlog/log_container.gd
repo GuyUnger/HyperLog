@@ -3,8 +3,8 @@ class_name LogContainer
 
 var parent_node
 
-onready var container = $container
-onready var name_label = $container/name
+@onready var container = $container
+@onready var name_label = $container/name
 
 var tracking := true
 var _offset := Vector2()
@@ -14,14 +14,21 @@ var align_vertical := 0
 func _process(delta):
 	if parent_node and parent_node != get_tree().get_root():
 #		rect_global_position = parent_node.global_position
-		rect_position = parent_node.get_global_transform_with_canvas().origin + _offset
-		if align_horizontal == HALIGN_CENTER:
+		if parent_node is Node3D:
+			var vp = get_viewport()
+			if vp:
+				var cam = vp.get_camera_3d()
+				if cam:
+					rect_position = cam.unproject_position(parent_node.global_transform.origin)
+		else:
+			rect_position = parent_node.get_global_transform_with_canvas().origin + _offset
+		if align_horizontal == HORIZONTAL_ALIGNMENT_CENTER:
 			rect_position.x -= rect_size.x / 2 * rect_scale.x
-		elif align_horizontal == HALIGN_RIGHT:
+		elif align_horizontal == HORIZONTAL_ALIGNMENT_RIGHT:
 			rect_position.x -= rect_size.x * rect_scale.x
-		if align_vertical == VALIGN_CENTER:
+		if align_vertical == VERTICAL_ALIGNMENT_CENTER:
 			rect_position.y -= rect_size.y / 2 * rect_scale.y
-		elif align_vertical == VALIGN_BOTTOM:
+		elif align_vertical == VERTICAL_ALIGNMENT_BOTTOM:
 			rect_position.y -= rect_size.y * rect_scale.y
 	
 	if print_dirty:
@@ -36,7 +43,7 @@ func _set_name(value):
 #	return self
 
 # print
-onready var prints_label = $container/prints
+@onready var prints_label = $container/prints
 var print_dirty := false
 
 var print_lines := []
@@ -66,7 +73,7 @@ func process_print():
 		prints_label.bbcode_text = print_lines[print_lines.size() - i - 1] + "\n" + prints_label.bbcode_text
 
 # text
-onready var ref_text = preload("res://addons/hyperlog/trackers/tracker_text.tscn")
+@onready var ref_text = preload("res://addons/hyperlog/trackers/tracker_text.tscn")
 func add_text():
 	return _create_tracker(ref_text)
 
@@ -76,7 +83,7 @@ func text(properties, node = null):
 	return tracker
 
 # angle
-onready var ref_angle = preload("res://addons/hyperlog/trackers/tracker_angle.tscn")
+@onready var ref_angle = preload("res://addons/hyperlog/trackers/tracker_angle.tscn")
 func add_angle():
 	var tracker = _create_tracker(ref_angle)
 	return tracker
@@ -87,7 +94,7 @@ func angle(properties = "rotation", node = null):
 	return tracker
 
 # graph
-onready var ref_graph = preload("res://addons/hyperlog/trackers/tracker_graph.tscn")
+@onready var ref_graph = preload("res://addons/hyperlog/trackers/tracker_graph.tscn")
 func add_graph():
 	var tracker = _create_tracker(ref_graph)
 	return tracker
@@ -102,19 +109,19 @@ func graph(properties, node = null, range_min = null, range_max = null)->Tracker
 	return tracker
 
 # bar
-onready var ref_bar = preload("res://addons/hyperlog/trackers/tracker_bar.tscn")
+@onready var ref_bar = preload("res://addons/hyperlog/trackers/tracker_bar.tscn")
 func add_bar():
 	var tracker = _create_tracker(ref_bar)
 	return tracker
 
-func bar(properties, range_min:float = 0, range_max:float = 10, node = null)->TrackerGraph:
+func bar(properties, range_min:float = 0.0, range_max:float = 10.0, node = null)->TrackerGraph:
 	var tracker = add_bar()
 	tracker.set_range(range_min, range_max)
 	tracker.track(properties, node)
 	return tracker
 
 # color
-onready var ref_color = preload("res://addons/hyperlog/trackers/tracker_color.tscn")
+@onready var ref_color = preload("res://addons/hyperlog/trackers/tracker_color.tscn")
 func add_color():
 	var tracker = _create_tracker(ref_color)
 	return tracker
@@ -125,7 +132,7 @@ func color(properties = "modulate", node = null):
 	return tracker
 
 func _create_tracker(ref):
-	var tracker = ref.instance()
+	var tracker = ref.instantiate()
 	container.add_child(tracker)
 	tracker.container = self
 	
@@ -139,7 +146,7 @@ func offset(value:Vector2)->LogContainer:
 	_offset = value
 	return self
 
-func align(horizontal = HALIGN_LEFT, vertical = VALIGN_TOP)->LogContainer:
+func align(horizontal = HORIZONTAL_ALIGNMENT_LEFT, vertical = VERTICAL_ALIGNMENT_TOP)->LogContainer:
 	align_horizontal = horizontal
 	align_vertical = vertical
 	return self

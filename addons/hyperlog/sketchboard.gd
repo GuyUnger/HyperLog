@@ -9,7 +9,7 @@ func _process(delta):
 	update()
 
 func _draw():
-	var time = OS.get_ticks_msec()
+	var time = 0.0#OS.get_ticks_msec()
 	
 	var i:int
 	
@@ -22,12 +22,12 @@ func _draw():
 		var from = data[0]
 		var to = data[1]
 		if duration == 0:
-			lines.remove(i)
+			lines.remove_at(i)
 		else:
 			var start = data[4]
 			color.a *= get_alpha(start, duration, time)
 			if start + duration < time:
-				lines.remove(i)
+				lines.remove_at(i)
 			else:
 				i += 1
 		draw_line(from, to, color)
@@ -42,12 +42,12 @@ func _draw():
 		var to = data[1]
 		
 		if duration == 0:
-				arrows.remove(i)
+				arrows.remove_at(i)
 		else:
 			var start = data[4]
 			color.a *= get_alpha(start, duration, time)
 			if start + duration < time:
-				arrows.remove(i)
+				arrows.remove_at(i)
 			else:
 				i += 1
 		
@@ -68,12 +68,12 @@ func _draw():
 		var position = data[0]
 		var radius = data[1]
 		if duration == 0:
-			circles.remove(i)
+			circles.remove_at(i)
 		else:
 			var start = data[4]
 			color.a *= get_alpha(start, duration, time)
 			if start + duration < time:
-				circles.remove(i)
+				circles.remove_at(i)
 			else:
 				i += 1
 		
@@ -93,12 +93,12 @@ func _draw():
 		var color = data[1]
 		var rect = data[0]
 		if duration == 0:
-			rects.remove(i)
+			rects.remove_at(i)
 		else:
 			var start = data[3]
 			color.a *= get_alpha(start, duration, time)
 			if start + duration < time:
-				rects.remove(i)
+				rects.remove_at(i)
 			else:
 				i += 1
 		draw_rect(data[0], color, false)

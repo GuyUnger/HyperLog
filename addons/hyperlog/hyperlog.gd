@@ -4,8 +4,8 @@ var main_log:LogContainer
 
 var colors := []
 
-onready var canvas = $canvas 
-onready var sketchboard = $canvas/sketchboard 
+@onready var canvas = $canvas 
+@onready var sketchboard = $canvas/sketchboard 
 
 var containers := []
 
@@ -15,12 +15,12 @@ func _ready():
 	main_log.parent_node = get_tree().root
 	
 	for i in 64:
-		var color = Color.red
+		var color = Color.RED
 		color.h += i * (1 / 4.0 + 1 / 32.0)
 		color.v *= 1 - (i / 128.0) * .5
 		colors.push_back(color)
 
-onready var container_ref = preload("res://addons/hyperlog/log_container.tscn")
+@onready var container_ref = preload("res://addons/hyperlog/log_container.tscn")
 func log(node:Node, print1 = null, print2 = null, print3 = null, print4 = null)->LogContainer:
 	var container = get_container(node)
 	if print1 != null:
@@ -32,7 +32,7 @@ func remove_log(node:Node):
 	for i in containers.size():
 		if containers[i].parent_node == node:
 			containers[i].queue_free()
-			containers.remove(i)
+			containers.remove_at(i)
 			return
 
 func pause_log(node:Node):
@@ -52,7 +52,7 @@ func get_container(node):
 		if container.parent_node == node:
 			return container
 	
-	var container = container_ref.instance()
+	var container = container_ref.instantiate()
 	add_child(container)
 	container.parent_node = node
 	container._set_name(node.name)
@@ -97,17 +97,17 @@ func color(properties = "modulate", node = null)->TrackerColor:
 
 # SKETCH
 
-func sketch_line(from:Vector2, to:Vector2, duration:float = 0, color:Color = Color.tomato):
+func sketch_line(from:Vector2, to:Vector2, duration:float = 0.0, color:Color = Color.TOMATO):
 	sketchboard.lines.push_back([from, to, color, duration * 1000, OS.get_ticks_msec()])
 
-func sketch_arrow(position:Vector2, vector:Vector2, duration:float = 0, color:Color = Color.tomato):
+func sketch_arrow(position:Vector2, vector:Vector2, duration:float = 0.0, color:Color = Color.TOMATO):
 	sketchboard.arrows.push_back([position, position + vector, color, duration * 1000, OS.get_ticks_msec()])
 
-func sketch_circle(position:Vector2, radius:float, duration:float = 0, color:Color = Color.tomato):
+func sketch_circle(position:Vector2, radius:float, duration:float = 0.0, color:Color = Color.TOMATO):
 	sketchboard.circles.push_back([position, radius, color, duration * 1000, OS.get_ticks_msec()])
 
-func sketch_box(position:Vector2, size:Vector2, duration:float = 0, color:Color = Color.tomato):
+func sketch_box(position:Vector2, size:Vector2, duration:float = 0.0, color:Color = Color.TOMATO):
 	sketch_rect(Rect2(position - size / 2.0, size), duration, color)
 
-func sketch_rect(rect:Rect2, duration:float = 0, color:Color = Color.tomato):
+func sketch_rect(rect:Rect2, duration:float = 0.0, color:Color = Color.TOMATO):
 	sketchboard.rects.push_back([rect, color, duration * 1000, OS.get_ticks_msec()])

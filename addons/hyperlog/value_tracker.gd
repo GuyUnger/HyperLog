@@ -45,7 +45,7 @@ func _init(node:Node, property:String, parent:Node = null):
 func get_value():
 	return node.get_indexed(property)
 
-func format(value):
+func apply_format(value):
 	if format == NONE:
 		return value
 	else:
