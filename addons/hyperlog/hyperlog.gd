@@ -1,5 +1,7 @@
 extends Node
 
+const ContainerRef = preload("res://addons/hyperlog/log_container.tscn")
+
 var main_log:LogContainer
 
 var colors := []
@@ -7,6 +9,7 @@ var colors := []
 onready var canvas = $canvas 
 onready var sketchboard = $canvas/sketchboard 
 
+var camera_3d : Camera = null
 var containers := []
 
 func _ready():
@@ -20,7 +23,7 @@ func _ready():
 		color.v *= 1 - (i / 128.0) * .5
 		colors.push_back(color)
 
-onready var container_ref = preload("res://addons/hyperlog/log_container.tscn")
+
 func log(node:Node, print1 = null, print2 = null, print3 = null, print4 = null)->LogContainer:
 	var container = get_container(node)
 	if print1 != null:
@@ -52,8 +55,9 @@ func get_container(node):
 		if container.parent_node == node:
 			return container
 	
-	var container = container_ref.instance()
+	var container = ContainerRef.instance()
 	add_child(container)
+	node.connect("tree_exiting", container, "remove")
 	container.parent_node = node
 	container._set_name(node.name)
 	containers.push_back(container)
@@ -76,7 +80,7 @@ func add_angle()->TrackerAngle:
 	return main_log.add_angle()
 
 func angle(properties = "rotation", node = null)->TrackerAngle:
-	main_log.s1ow()
+	main_log.show()
 	return main_log.angle(properties, node)
 
 func add_graph()->TrackerGraph:

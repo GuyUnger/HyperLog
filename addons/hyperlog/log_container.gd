@@ -13,8 +13,14 @@ var align_vertical := 0
 
 func _process(delta):
 	if parent_node and parent_node != get_tree().get_root():
-#		rect_global_position = parent_node.global_position
-		rect_position = parent_node.get_global_transform_with_canvas().origin + _offset
+		if parent_node is Spatial:
+			if HyperLog.camera_3d != null:
+				rect_position = HyperLog.camera_3d.unproject_position(parent_node.global_translation) + _offset
+			else:
+				rect_position = _offset
+		else:
+			rect_position = parent_node.get_global_transform_with_canvas().origin + _offset
+		
 		if align_horizontal == HALIGN_CENTER:
 			rect_position.x -= rect_size.x / 2 * rect_scale.x
 		elif align_horizontal == HALIGN_RIGHT:
@@ -23,6 +29,8 @@ func _process(delta):
 			rect_position.y -= rect_size.y / 2 * rect_scale.y
 		elif align_vertical == VALIGN_BOTTOM:
 			rect_position.y -= rect_size.y * rect_scale.y
+	else:
+		remove()
 	
 	if print_dirty:
 		process_print()

@@ -1,6 +1,9 @@
 extends Tracker
 class_name TrackerGraph
 
+const MAX_STR := "Max: %0.1f"
+const MIN_STR := "Min: %0.1f"
+
 var min_value := 0.0
 var max_value := 0.1
 var tracking_length := 1
@@ -15,8 +18,20 @@ var step_size := 20
 var _step := 0
 var _dirty := false
 
+onready var name_label := $labels/name_label
+onready var max_label := $labels/max_value
+onready var min_label := $min_value
+
 func _init():
 	set_height(80)
+
+func add_tracker(property:String, node:Node = null)->ValueTracker:
+	if container.parent_node and node != container.parent_node:
+		name_label.text = str(container.parent_node.get_path_to(node)) + " > " + property
+	else:
+		name_label.text = property
+	return .add_tracker(property, node)
+	
 
 func _physics_process(delta):
 	if not container.tracking: return
@@ -36,7 +51,6 @@ func _draw():
 	next_min_value = 999999.0
 	next_max_value = -999999.0
 	var next_tracking_length = 1
-	
 	
 	if min_value < 0 and max_value > 0:
 		var zero_height = _range_value(0)
@@ -69,8 +83,10 @@ func _draw():
 	
 	if force_min_value == null:
 		min_value = next_min_value
+		min_label.text = MIN_STR % min_value
 	if force_max_value == null:
 		max_value = next_max_value
+		max_label.text = MAX_STR % max_value
 	tracking_length = next_tracking_length
 	
 	if min_value == max_value:
@@ -98,18 +114,22 @@ func _range_value(value)->float:
 func set_range_min(value:float)->Tracker:
 	force_min_value = value
 	min_value = value
+	min_label.text = MIN_STR % min_value
 	return self
 
 func set_range_max(value:float)->Tracker:
 	force_max_value = value
 	max_value = value
+	max_label.text = MAX_STR % max_value
 	return self
 
 func set_range(value_min:float, value_max:float)->Tracker:
 	force_min_value = value_min
 	min_value = value_min
+	min_label.text = MIN_STR % min_value
 	force_max_value = value_max
 	max_value = value_max
+	max_label.text = MAX_STR % max_value
 	return self
 
 func set_steps(value:int)->TrackerGraph:
