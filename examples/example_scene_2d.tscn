@@ -1,11 +1,11 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://cr4tlgk0q6d8d"]
 
-[ext_resource path="res://icon.png" type="Texture" id=1]
-[ext_resource path="res://examples/example_scene_2d.gd" type="Script" id=2]
+[ext_resource type="Texture2D" uid="uid://neeyxp8coio0" path="res://icon.png" id="1"]
+[ext_resource type="Script" path="res://examples/example_scene_2d.gd" id="2"]
 
 [node name="ExampleScene2D" type="Node2D"]
 
-[node name="Icon" type="Sprite" parent="."]
-position = Vector2( 506, 277 )
-texture = ExtResource( 1 )
-script = ExtResource( 2 )
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(506, 277)
+texture = ExtResource("1")
+script = ExtResource("2")

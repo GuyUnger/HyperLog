@@ -17,14 +17,14 @@ func _process(delta):
 		bar.value = value
 
 func add_tracker(property:String, node:Node)->ValueTracker:
-	var tracker = .add_tracker(property, node)
+	var tracker = super.add_tracker(property, node)
 	var label = Label.new()
 	add_child(label)
 	label.text = tracker.property_name
 	labels.push_back(label)
 	
 	var bar = ProgressBar.new()
-	bar.rect_min_size.y = 20
+	bar.custom_minimum_size.y = 20
 	bar.min_value = range_min
 	bar.max_value = range_max
 	bar.percent_visible = false

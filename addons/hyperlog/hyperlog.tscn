@@ -10,12 +10,12 @@ script = ExtResource( 1 )
 
 [node name="main_log" parent="." instance=ExtResource( 2 )]
 anchor_bottom = 0.0
-margin_right = 0.0
-margin_bottom = 14.0
+offset_right = 0.0
+offset_bottom = 14.0
 
 [node name="canvas" type="CanvasLayer" parent="."]
 layer = 3
-follow_viewport_enable = true
+follow_viewport_enabled = true
 
 [node name="sketchboard" type="Node2D" parent="canvas"]
 script = ExtResource( 3 )

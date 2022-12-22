@@ -1,4 +1,4 @@
-extends Sprite
+extends Sprite2D
 
 var dir := Vector2.ZERO
 var speed := 0.0
@@ -21,7 +21,7 @@ func _physics_process(delta:float) -> void:
 
 func _update_pos(_new_pos:Vector2, delta:float) -> void:
 	HyperLog.sketch_arrow(global_position, dir, 1)
-	HyperLog.sketch_line(global_position, global_position+(dir*(50+speed*10)), 0.1, Color.cornflower)
+	HyperLog.sketch_line(global_position, global_position+(dir*(50+speed*10)), 0.1, Color.CORNFLOWER_BLUE)
 	dir = last_pos.direction_to(_new_pos)
 	var old_pos = global_position
 	global_position = lerp(global_position, _new_pos, delta*4.0)

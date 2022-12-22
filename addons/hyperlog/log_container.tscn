@@ -32,9 +32,9 @@ self_modulate = Color( 0.690196, 0.690196, 0.690196, 1 )
 material = SubResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -1180.0
-margin_bottom = -704.0
-rect_min_size = Vector2( 10, 0 )
+offset_right = -1180.0
+offset_bottom = -704.0
+minimum_size = Vector2( 10, 0 )
 size_flags_vertical = 15
 theme = SubResource( 4 )
 script = ExtResource( 1 )
@@ -43,23 +43,23 @@ __meta__ = {
 }
 
 [node name="container" type="VBoxContainer" parent="."]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 92.0
-margin_bottom = 8.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 92.0
+offset_bottom = 8.0
 size_flags_vertical = 15
 
 [node name="name" type="Label" parent="container"]
 visible = false
-margin_right = 186.0
-margin_bottom = 14.0
+offset_right = 186.0
+offset_bottom = 14.0
 size_flags_horizontal = 11
 
 [node name="prints" type="RichTextLabel" parent="container"]
 visible = false
-margin_right = 186.0
-margin_bottom = 15.0
-rect_min_size = Vector2( 200, 0 )
+offset_right = 186.0
+offset_bottom = 15.0
+minimum_size = Vector2( 200, 0 )
 bbcode_enabled = true
 fit_content_height = true
 scroll_active = false

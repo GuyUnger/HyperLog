@@ -1,7 +1,7 @@
 extends Tracker
 class_name TrackerColor
 
-onready var label = $Label
+@onready var label = $Label
 
 var backlog = []
 

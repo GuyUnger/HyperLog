@@ -1,5 +1,4 @@
-extends Tracker
-class_name TrackerGraph
+class_name TrackerGraph extends Tracker
 
 const MAX_STR := "Max: %0.1f"
 const MIN_STR := "Min: %0.1f"
@@ -18,9 +17,9 @@ var step_size := 20
 var _step := 0
 var _dirty := false
 
-onready var name_label := $labels/name_label
-onready var max_label := $labels/max_value
-onready var min_label := $min_value
+@onready var name_label := $labels/name_label
+@onready var max_label := $labels/max_value
+@onready var min_label := $min_value
 
 func _init():
 	set_height(80)
@@ -30,7 +29,7 @@ func add_tracker(property:String, node:Node = null)->ValueTracker:
 		name_label.text = str(container.parent_node.get_path_to(node)) + " > " + property
 	else:
 		name_label.text = property
-	return .add_tracker(property, node)
+	return super.add_tracker(property, node)
 	
 
 func _physics_process(delta):
@@ -44,7 +43,7 @@ func _physics_process(delta):
 func _process(delta):
 	if not container.tracking: return
 	if _dirty:
-		update()
+		queue_redraw()
 		_dirty = false
 
 func _draw():
@@ -54,10 +53,10 @@ func _draw():
 	
 	if min_value < 0 and max_value > 0:
 		var zero_height = _range_value(0)
-		draw_line(Vector2(0, zero_height), Vector2(rect_size.x, zero_height), Color(.8, .8, .8, .4))
+		draw_line(Vector2(0, zero_height), Vector2(size.x, zero_height), Color(.8, .8, .8, .4))
 	
-	draw_line(Vector2(0, 1), Vector2(rect_size.x, 1), Color(1, 1, 1, .5))
-	draw_line(Vector2(0, rect_size.y-1), Vector2(rect_size.x, rect_size.y-1), Color(1, 1, 1, .5))
+	draw_line(Vector2(0, 1), Vector2(size.x, 1), Color(1, 1, 1, .5))
+	draw_line(Vector2(0, size.y-1), Vector2(size.x, size.y-1), Color(1, 1, 1, .5))
 	
 	var color_index := 0
 	for tracker in trackers:
@@ -97,19 +96,19 @@ func _graph_segment(from, to, pos, color_index):
 		next_max_value = max(next_max_value, from)
 		
 		var pos_from = Vector2(
-				pos / float(tracking_length) * rect_size.x,
+				pos / float(tracking_length) * size.x,
 				_range_value(from)
 			)
 		
 		var pos_to = Vector2(
-				(pos + 1) / float(tracking_length) * rect_size.x,
+				(pos + 1) / float(tracking_length) * size.x,
 				_range_value(to)
 			)
 		
 		draw_line(pos_from, pos_to, HyperLog.colors[color_index])
 
 func _range_value(value)->float:
-	return (1 - ( (value - min_value) / (max_value - min_value) ) ) * (rect_min_size.y - 2) + 1
+	return (1 - ( (value - min_value) / (max_value - min_value) ) ) * (custom_minimum_size.y - 2) + 1
 
 func set_range_min(value:float)->Tracker:
 	force_min_value = value

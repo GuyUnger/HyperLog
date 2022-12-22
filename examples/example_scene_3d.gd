@@ -1,4 +1,4 @@
-extends Spatial
+extends Node3D
 
 var dir := Vector2.ZERO
 var speed := 0.0
@@ -6,23 +6,23 @@ var mouse_pos := Vector2.ZERO
 var last_pos := Vector2.ZERO
 var target_rotation := Vector2.ZERO
 
-onready var mouse_tracker := $MouseTracker
-onready var container := $Container
+@onready var mouse_tracker := $MouseTracker
+@onready var container := $Container
 
 
 func _enter_tree() -> void:
 	# This needs to be set first, it can also be done from the camera when changing in-game cams.
-	HyperLog.camera_3d = $Camera
+	HyperLog.camera_3d = $Camera3D
 
 
 func _ready() -> void:
 	HyperLog.text("speed>%0.1f", self)
 	HyperLog.text("dir>%0.1f", self)
 	HyperLog.log($Ball).offset(Vector2(20,20))
-	HyperLog.log($Ball).text("global_translation>%0.1f")
+	HyperLog.log($Ball).text("global_position>%0.1f")
 	HyperLog.log($Ball).text("linear_velocity>%0.1f")
 	HyperLog.log($Ball2).offset(Vector2(20,20))
-	HyperLog.log($Ball2).text("global_translation>%0.1f")
+	HyperLog.log($Ball2).text("global_position>%0.1f")
 	HyperLog.log($Ball2).text("linear_velocity>%0.1f")
 
 

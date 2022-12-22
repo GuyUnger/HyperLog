@@ -1,6 +1,6 @@
 extends Tracker
 
-onready var label = $Label
+@onready var label = $Label
 
 var backlog = []
 

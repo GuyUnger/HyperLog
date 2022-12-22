@@ -2,14 +2,14 @@ extends Node
 
 const ContainerRef = preload("res://addons/hyperlog/log_container.tscn")
 
-var main_log:LogContainer
+var main_log: LogContainer
 
 var colors := []
 
-onready var canvas = $canvas 
-onready var sketchboard = $canvas/sketchboard 
+@onready var canvas = $canvas 
+@onready var sketchboard = $canvas/sketchboard 
 
-var camera_3d : Camera = null
+var camera_3d : Camera3D = null
 var containers := []
 
 func _ready():
@@ -18,13 +18,13 @@ func _ready():
 	main_log.parent_node = get_tree().root
 	
 	for i in 64:
-		var color = Color.red
+		var color = Color.RED
 		color.h += i * (1 / 4.0 + 1 / 32.0)
 		color.v *= 1 - (i / 128.0) * .5
 		colors.push_back(color)
 
 
-func log(node:Node, print1 = null, print2 = null, print3 = null, print4 = null)->LogContainer:
+func log(node:Node, print1 = null, print2 = null, print3 = null, print4 = null) -> LogContainer:
 	var container = get_container(node)
 	if print1 != null:
 		container.print(print1, print2, print3, print4)
@@ -35,7 +35,7 @@ func remove_log(node:Node):
 	for i in containers.size():
 		if containers[i].parent_node == node:
 			containers[i].queue_free()
-			containers.remove(i)
+			containers.remove_at(i)
 			return
 
 func pause_log(node:Node):
@@ -55,9 +55,9 @@ func get_container(node):
 		if container.parent_node == node:
 			return container
 	
-	var container = ContainerRef.instance()
+	var container = ContainerRef.instantiate()
 	add_child(container)
-	node.connect("tree_exiting", container, "remove")
+	node.connect("tree_exiting",Callable(container,"remove_at"))
 	container.parent_node = node
 	container._set_name(node.name)
 	containers.push_back(container)
@@ -79,7 +79,7 @@ func add_angle()->TrackerAngle:
 	main_log.show()
 	return main_log.add_angle()
 
-func angle(properties = "rotation", node = null)->TrackerAngle:
+func angle(properties = "rotation", node = null) -> TrackerAngle:
 	main_log.show()
 	return main_log.angle(properties, node)
 
@@ -87,7 +87,7 @@ func add_graph()->TrackerGraph:
 	main_log.show()
 	return main_log.add_graph()
 
-func graph(properties, node = null, range_min = null, range_max = null)->TrackerGraph:
+func graph(properties, node = null, range_min = null, range_max = null) -> TrackerGraph:
 	main_log.show()
 	return main_log.graph(properties, node, range_min, range_max)
 
@@ -101,17 +101,17 @@ func color(properties = "modulate", node = null)->TrackerColor:
 
 # SKETCH
 
-func sketch_line(from:Vector2, to:Vector2, duration:float = 0, color:Color = Color.tomato):
-	sketchboard.lines.push_back([from, to, color, duration * 1000, OS.get_ticks_msec()])
+func sketch_line(from:Vector2, to:Vector2, duration:float = 0.0, color:Color = Color.TOMATO):
+	sketchboard.lines.push_back([from, to, color, duration * 1000, Time.get_ticks_msec()])
 
-func sketch_arrow(position:Vector2, vector:Vector2, duration:float = 0, color:Color = Color.tomato):
-	sketchboard.arrows.push_back([position, position + vector, color, duration * 1000, OS.get_ticks_msec()])
+func sketch_arrow(position:Vector2, vector:Vector2, duration:float = 0.0, color:Color = Color.TOMATO):
+	sketchboard.arrows.push_back([position, position + vector, color, duration * 1000, Time.get_ticks_msec()])
 
-func sketch_circle(position:Vector2, radius:float, duration:float = 0, color:Color = Color.tomato):
-	sketchboard.circles.push_back([position, radius, color, duration * 1000, OS.get_ticks_msec()])
+func sketch_circle(position:Vector2, radius:float, duration:float = 0.0, color:Color = Color.TOMATO):
+	sketchboard.circles.push_back([position, radius, color, duration * 1000, Time.get_ticks_msec()])
 
-func sketch_box(position:Vector2, size:Vector2, duration:float = 0, color:Color = Color.tomato):
+func sketch_box(position:Vector2, size:Vector2, duration:float = 0.0, color:Color = Color.TOMATO):
 	sketch_rect(Rect2(position - size / 2.0, size), duration, color)
 
-func sketch_rect(rect:Rect2, duration:float = 0, color:Color = Color.tomato):
-	sketchboard.rects.push_back([rect, color, duration * 1000, OS.get_ticks_msec()])
+func sketch_rect(rect:Rect2, duration:float = 0.0, color:Color = Color.TOMATO):
+	sketchboard.rects.push_back([rect, color, duration * 1000, Time.get_ticks_msec()])

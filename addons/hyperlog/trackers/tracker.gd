@@ -1,5 +1,4 @@
-extends Control
-class_name Tracker
+class_name Tracker extends Control
 
 var trackers := []
 var container
@@ -21,17 +20,17 @@ func track(properties, node = null):
 		for i in properties.size():
 			add_tracker(properties[i], node)
 
-func add_tracker(property:String, node:Node)->ValueTracker:
+func add_tracker(property:String, node:Node) -> ValueTracker:
 	var tracker = ValueTracker.new(node, property, container.parent_node)
 	trackers.push_back(tracker)
 	return tracker
 
 func remove_tracker(tracker):
-	trackers.remove(tracker)
+	trackers.remove_at(tracker)
 
-func set_height(value:float)->Tracker:
-	rect_min_size.y = value
-	rect_size.y = value
+func set_height(value:float) -> Tracker:
+	custom_minimum_size.y = value
+	size.y = value
 	return self
 
 func trackers_store_value():

@@ -5,9 +5,9 @@
 [node name="logger_bar" type="VBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -1220.0
-margin_bottom = -710.0
-rect_min_size = Vector2( 60, 10 )
+offset_right = -1220.0
+offset_bottom = -710.0
+minimum_size = Vector2( 60, 10 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -15,6 +15,6 @@ __meta__ = {
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 visible = false
-margin_right = 60.0
-margin_bottom = 2.0
+offset_right = 60.0
+offset_bottom = 2.0
 percent_visible = false

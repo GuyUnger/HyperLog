@@ -1,154 +1,156 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=13 format=3 uid="uid://xg8jlylodhim"]
 
-[ext_resource path="res://examples/3d_cam_environment.tres" type="Environment" id=1]
-[ext_resource path="res://examples/example_scene_3d.gd" type="Script" id=2]
+[ext_resource type="Environment" path="res://examples/3d_cam_environment.tres" id="1"]
+[ext_resource type="Script" path="res://examples/example_scene_3d.gd" id="2"]
 
-[sub_resource type="BoxShape" id=1]
-extents = Vector3( 10, 1, 10 )
+[sub_resource type="BoxShape3D" id="1"]
+size = Vector3(20, 2, 20)
 
-[sub_resource type="SpatialMaterial" id=2]
-albedo_color = Color( 0.282353, 0.294118, 0.309804, 1 )
+[sub_resource type="StandardMaterial3D" id="2"]
+albedo_color = Color(0.282353, 0.294118, 0.309804, 1)
 
-[sub_resource type="CubeMesh" id=3]
-size = Vector3( 20, 2, 20 )
+[sub_resource type="BoxMesh" id="3"]
+size = Vector3(20, 2, 20)
 
-[sub_resource type="BoxShape" id=4]
-extents = Vector3( 10, 1, 4 )
+[sub_resource type="BoxShape3D" id="4"]
+size = Vector3(20, 2, 8)
 
-[sub_resource type="CubeMesh" id=5]
-size = Vector3( 20, 2, 8 )
+[sub_resource type="BoxMesh" id="5"]
+size = Vector3(20, 2, 8)
 
-[sub_resource type="PhysicsMaterial" id=9]
+[sub_resource type="PhysicsMaterial" id="9"]
 bounce = 0.7
 
-[sub_resource type="SphereShape" id=6]
+[sub_resource type="SphereShape3D" id="6"]
 radius = 1.5
 
-[sub_resource type="SpatialMaterial" id=7]
-albedo_color = Color( 1, 0.431373, 0.121569, 1 )
+[sub_resource type="StandardMaterial3D" id="7"]
+albedo_color = Color(1, 0.431373, 0.121569, 1)
 metallic = 1.0
 metallic_specular = 1.0
 roughness = 0.24
 
-[sub_resource type="SphereMesh" id=8]
+[sub_resource type="SphereMesh" id="8"]
 radius = 1.5
 height = 3.0
 
-[sub_resource type="SpatialMaterial" id=10]
-albedo_color = Color( 0.231373, 1, 0.121569, 1 )
+[sub_resource type="StandardMaterial3D" id="10"]
+albedo_color = Color(0.231373, 1, 0.121569, 1)
 metallic = 1.0
 metallic_specular = 1.0
 roughness = 0.24
 
-[node name="ExampleScene3D" type="Spatial"]
-script = ExtResource( 2 )
+[node name="ExampleScene3D" type="Node3D"]
+script = ExtResource("2")
 
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.744766, 0.667326, 0, -0.667326, 0.744766, 0, 11.1104, 8.737 )
-environment = ExtResource( 1 )
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.744766, 0.667326, 0, -0.667326, 0.744766, 0, 11.1104, 8.737)
+environment = ExtResource("1")
 fov = 72.1
 
-[node name="Container" type="Spatial" parent="."]
-transform = Transform( 0.999986, -0.00360396, 0.0038758, 0.00373325, 0.999419, -0.0338843, -0.00375142, 0.0338983, 0.999418, 0, 0, 0 )
+[node name="Container" type="Node3D" parent="."]
+transform = Transform3D(0.999986, -0.00360396, 0.0038758, 0.00373325, 0.999419, -0.0338843, -0.00375142, 0.0338983, 0.999418, 0, 0, 0)
 
-[node name="StaticBody" type="StaticBody" parent="Container"]
-transform = Transform( 1, -4.65661e-10, 4.65661e-10, 1.01863e-10, 1, 0, 0, -7.45058e-09, 1, 0.00319887, 0.856364, -0.0290342 )
+[node name="StaticBody3D" type="StaticBody3D" parent="Container"]
+transform = Transform3D(1, -4.65661e-10, 4.65661e-10, 1.01863e-10, 1, 0, 0, -7.45058e-09, 1, 0.00319887, 0.856364, -0.0290342)
 collision_layer = 2
 collision_mask = 0
 
-[node name="CollisionShape" type="CollisionShape" parent="Container/StaticBody"]
-shape = SubResource( 1 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Container/StaticBody3D"]
+shape = SubResource("1")
 
-[node name="MeshInstance" type="MeshInstance" parent="Container/StaticBody"]
-material_override = SubResource( 2 )
-mesh = SubResource( 3 )
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Container/StaticBody3D"]
+material_override = SubResource("2")
+mesh = SubResource("3")
 
-[node name="StaticBody2" type="StaticBody" parent="Container"]
-transform = Transform( 1, 0, 0, 0, 0.258819, -0.965926, 0, 0.965926, 0.258819, 0, 3.021, -9 )
+[node name="StaticBody2" type="StaticBody3D" parent="Container"]
+transform = Transform3D(1, 0, 0, 0, 0.258819, -0.965926, 0, 0.965926, 0.258819, 0, 3.021, -9)
 collision_layer = 2
 collision_mask = 0
 
-[node name="CollisionShape" type="CollisionShape" parent="Container/StaticBody2"]
-shape = SubResource( 4 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Container/StaticBody2"]
+shape = SubResource("4")
 
-[node name="MeshInstance" type="MeshInstance" parent="Container/StaticBody2"]
-material_override = SubResource( 2 )
-mesh = SubResource( 5 )
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Container/StaticBody2"]
+material_override = SubResource("2")
+mesh = SubResource("5")
 
-[node name="StaticBody3" type="StaticBody" parent="Container"]
-transform = Transform( -1, -8.44439e-08, -2.26267e-08, 0, 0.258819, -0.965926, 8.74228e-08, -0.965926, -0.258819, 0, 3.021, 9 )
+[node name="StaticBody3" type="StaticBody3D" parent="Container"]
+transform = Transform3D(-1, -8.44439e-08, -2.26267e-08, 0, 0.258819, -0.965926, 8.74228e-08, -0.965926, -0.258819, 0, 3.021, 9)
 collision_layer = 2
 collision_mask = 0
 
-[node name="CollisionShape" type="CollisionShape" parent="Container/StaticBody3"]
-shape = SubResource( 4 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Container/StaticBody3"]
+shape = SubResource("4")
 
-[node name="MeshInstance" type="MeshInstance" parent="Container/StaticBody3"]
-transform = Transform( 1, -7.10543e-15, -1.77636e-15, 0, 1, 0, 1.77636e-15, 0, 1, 0, 0, 0 )
-material_override = SubResource( 2 )
-mesh = SubResource( 5 )
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Container/StaticBody3"]
+transform = Transform3D(1, -7.10543e-15, -1.77636e-15, 0, 1, 0, 1.77636e-15, 0, 1, 0, 0, 0)
+material_override = SubResource("2")
+mesh = SubResource("5")
 
-[node name="StaticBody4" type="StaticBody" parent="Container"]
-transform = Transform( -4.37114e-08, -0.965926, -0.258819, 0, 0.258819, -0.965926, 1, -4.2222e-08, -1.13133e-08, 9, 3.021, 0 )
+[node name="StaticBody4" type="StaticBody3D" parent="Container"]
+transform = Transform3D(-4.37114e-08, -0.965926, -0.258819, 0, 0.258819, -0.965926, 1, -4.2222e-08, -1.13133e-08, 9, 3.021, 0)
 collision_layer = 2
 collision_mask = 0
 
-[node name="CollisionShape" type="CollisionShape" parent="Container/StaticBody4"]
-shape = SubResource( 4 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Container/StaticBody4"]
+shape = SubResource("4")
 
-[node name="MeshInstance" type="MeshInstance" parent="Container/StaticBody4"]
-transform = Transform( 1, 3.55271e-15, 8.88178e-16, 0, 1, 4.77671e-16, -8.88178e-16, 4.77671e-16, 1, 0, 0, 0 )
-material_override = SubResource( 2 )
-mesh = SubResource( 5 )
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Container/StaticBody4"]
+transform = Transform3D(1, 3.55271e-15, 8.88178e-16, 0, 1, 4.77671e-16, -8.88178e-16, 4.77671e-16, 1, 0, 0, 0)
+material_override = SubResource("2")
+mesh = SubResource("5")
 
-[node name="StaticBody5" type="StaticBody" parent="Container"]
-transform = Transform( -4.37114e-08, 0.965926, 0.258819, 0, 0.258819, -0.965926, -1, -4.2222e-08, -1.13133e-08, -9, 3.021, 0 )
+[node name="StaticBody5" type="StaticBody3D" parent="Container"]
+transform = Transform3D(-4.37114e-08, 0.965926, 0.258819, 0, 0.258819, -0.965926, -1, -4.2222e-08, -1.13133e-08, -9, 3.021, 0)
 collision_layer = 2
 collision_mask = 0
 
-[node name="CollisionShape" type="CollisionShape" parent="Container/StaticBody5"]
-shape = SubResource( 4 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Container/StaticBody5"]
+shape = SubResource("4")
 
-[node name="MeshInstance" type="MeshInstance" parent="Container/StaticBody5"]
-transform = Transform( 1, -3.55271e-15, -8.88178e-16, 0, 1, 4.77671e-16, 8.88178e-16, 4.77671e-16, 1, 0, 0, 0 )
-material_override = SubResource( 2 )
-mesh = SubResource( 5 )
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Container/StaticBody5"]
+transform = Transform3D(1, -3.55271e-15, -8.88178e-16, 0, 1, 4.77671e-16, 8.88178e-16, 4.77671e-16, 1, 0, 0, 0)
+material_override = SubResource("2")
+mesh = SubResource("5")
 
-[node name="Ball" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0235214, 5.01801, 0.0236435 )
+[node name="Ball" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0235214, 5.01801, 0.0236435)
 collision_mask = 3
-physics_material_override = SubResource( 9 )
+physics_material_override = SubResource("9")
 gravity_scale = 8.0
 
-[node name="CollisionShape" type="CollisionShape" parent="Ball"]
-shape = SubResource( 6 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ball"]
+shape = SubResource("6")
 
-[node name="MeshInstance" type="MeshInstance" parent="Ball"]
-material_override = SubResource( 7 )
-mesh = SubResource( 8 )
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ball"]
+material_override = SubResource("7")
+mesh = SubResource("8")
 
-[node name="Ball2" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.83748, 5.01801, 3.11265 )
+[node name="Ball2" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.83748, 5.01801, 3.11265)
 collision_mask = 3
-physics_material_override = SubResource( 9 )
+physics_material_override = SubResource("9")
 gravity_scale = 8.0
 
-[node name="CollisionShape" type="CollisionShape" parent="Ball2"]
-shape = SubResource( 6 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ball2"]
+shape = SubResource("6")
 
-[node name="MeshInstance" type="MeshInstance" parent="Ball2"]
-material_override = SubResource( 10 )
-mesh = SubResource( 8 )
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ball2"]
+material_override = SubResource("10")
+mesh = SubResource("8")
 
-[node name="SpotLight" type="SpotLight" parent="."]
-transform = Transform( 0.204686, 0.833036, -0.513959, 0.694901, 0.246126, 0.675673, 0.689359, -0.495452, -0.528499, -17.1853, 20.5903, -16.6175 )
-light_color = Color( 0.988235, 1, 0.772549, 1 )
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(0.204686, 0.833036, -0.513959, 0.694901, 0.246126, 0.675673, 0.689359, -0.495452, -0.528499, -17.1853, 20.5903, -16.6175)
+light_color = Color(0.988235, 1, 0.772549, 1)
 shadow_enabled = true
 spot_range = 50.0
 spot_angle = 26.22
 spot_angle_attenuation = 0.68302
 
 [node name="MouseTracker" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 mouse_filter = 2
