@@ -1,10 +1,11 @@
 extends Tracker
 
-@onready var label = $Label
+@onready var label = %Label
 
-var backlog = []
+var backlog := []
 
-var max_lines = 1024
+var max_lines := 1024
+
 
 func _process(delta):
 	for tracker in trackers:

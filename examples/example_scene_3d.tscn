@@ -46,6 +46,7 @@ script = ExtResource("2")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.744766, 0.667326, 0, -0.667326, 0.744766, 0, 11.1104, 8.737)
 environment = ExtResource("1")
+current = true
 fov = 72.1
 
 [node name="Container" type="Node3D" parent="."]

@@ -47,7 +47,12 @@ func _draw():
 			var current_angle = tracker.backlog[0]
 			if current_angle is Vector2:
 				current_angle = current_angle.angle()
-			draw_line(center,Vector2.RIGHT.rotated(current_angle) * radius + center,HyperLog.colors[j],2)
+			draw_line(
+					center,
+					Vector2.RIGHT.rotated(current_angle) * radius + center,
+					HyperLog.colors[j],
+					2, true
+				)
 	
 	draw_circle(center, radius, Color(1, 1, 1, .1))
 
@@ -59,7 +64,8 @@ func draw_arch(from, to, color, center):
 		draw_line(
 				Vector2.RIGHT.rotated(from.x) * from.y + center,
 				Vector2.RIGHT.rotated(to.x) * to.y + center,
-				color)
+				color, true
+			)
 	else:
 		var current_angle = from.x
 		var previous_angle = from.x
@@ -75,9 +81,10 @@ func draw_arch(from, to, color, center):
 				current_angle = angle_towards(current_angle, to.x, step_size)
 				current_radius = from.y# + .01#lerp(from.y, to.y, angle_difference(from.x, current_angle) / total_arch)
 			draw_line(
-						Vector2.RIGHT.rotated(current_angle) * current_radius + center,
-						Vector2.RIGHT.rotated(previous_angle) * previous_radius + center,
-						color)
+					Vector2.RIGHT.rotated(current_angle) * current_radius + center,
+					Vector2.RIGHT.rotated(previous_angle) * previous_radius + center,
+					color, true
+				)
 			
 			previous_angle = current_angle
 			previous_radius = current_radius

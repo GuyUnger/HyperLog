@@ -1,12 +1,14 @@
-extends Node2D
+class_name Sketchboard extends Node2D
 
 var lines := []
 var circles := []
 var arrows := []
 var rects := []
 
+
 func _process(delta):
 	queue_redraw()
+
 
 func _draw():
 	var time = Time.get_ticks_msec()
@@ -30,7 +32,7 @@ func _draw():
 				lines.remove_at(i)
 			else:
 				i += 1
-		draw_line(from, to, color)
+		draw_line(from, to, color, 1.0, true)
 	
 	# ARROWS
 	i = 0
@@ -54,10 +56,10 @@ func _draw():
 		if from == to:
 			draw_circle(from, 2, color)
 		else:
-			var angle = from.angle_to_point(to)
-			draw_line(from, to, color)
-			draw_line(to, to + Vector2.RIGHT.rotated(angle - .4) * 16, color)
-			draw_line(to, to + Vector2.RIGHT.rotated(angle + .4) * 16, color)
+			draw_line(from, to, color, 1.0, true)
+			var angle = from.angle_to_point(to) + PI
+			draw_line(to, to + Vector2.RIGHT.rotated(angle - 0.4) * 16, color, 1.0, true)
+			draw_line(to, to + Vector2.RIGHT.rotated(angle + 0.4) * 16, color, 1.0, true)
 	
 	# CIRCLES
 	i = 0
@@ -81,7 +83,7 @@ func _draw():
 		for j in 13:
 			var point = Vector2.RIGHT.rotated(j / 12.0 * TAU) * radius + position
 			if prev_point:
-				draw_line(prev_point, point, color)
+				draw_line(prev_point, point, color, 1.0, true)
 			prev_point = point
 #		draw_circle(data[0], data[1], color)
 	
@@ -102,6 +104,7 @@ func _draw():
 			else:
 				i += 1
 		draw_rect(data[0], color, false)
+
 
 func get_alpha(start:float, duration:float, current:float):
 	return 1.0 - ( (current - start) / duration) * .9

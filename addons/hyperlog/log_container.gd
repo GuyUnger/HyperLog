@@ -3,13 +3,14 @@ class_name LogContainer
 
 var parent_node
 
-@onready var container = $container
-@onready var name_label = $container/name
+@onready var container = %Container
+@onready var name_label = %Name
 
 var tracking := true
 var _offset := Vector2()
 var align_horizontal := 0
 var align_vertical := 0
+
 
 func _process(delta):
 	if parent_node and parent_node != get_tree().get_root():
@@ -35,21 +36,20 @@ func _process(delta):
 	if print_dirty:
 		process_print()
 
+
 func _set_name(value):
 	name_label.visible = true
 	name_label.text = value
 
-#func set_size(value:float = 1)->LogContainer:
-#	scale = Vector2.ONE * value
-#	return self
 
 # print
-@onready var prints_label = $container/prints
+@onready var prints_label = %Prints
 var print_dirty := false
 
 var print_lines := []
 var print_scroll := 0
 var print_lines_visible_max := 8
+
 
 func print(arg1, arg2 = null, arg3 = null, arg4 = null):
 	prints_label.visible = true
@@ -60,6 +60,7 @@ func print(arg1, arg2 = null, arg3 = null, arg4 = null):
 	print_lines.push_back(line)
 	print_dirty = true
 
+
 func format(value)->String:
 	if value is Color:
 		var hex = value.to_html(true)
@@ -68,20 +69,24 @@ func format(value)->String:
 		return "[color=" + ("green" if value else "red") + "]"+str(value)+"[/color]"
 	return str(value)
 
+
 func process_print():
 	prints_label.text = ""
 	for i in min(print_lines.size(), print_lines_visible_max):
 		prints_label.text = print_lines[print_lines.size() - i - 1] + "\n" + prints_label.text
+
 
 # text
 @onready var ref_text = preload("res://addons/hyperlog/trackers/tracker_text.tscn")
 func add_text():
 	return _create_tracker(ref_text)
 
+
 func text(properties, node = null):
 	var tracker = add_text()
 	tracker.track(properties, node)
 	return tracker
+
 
 # angle
 @onready var ref_angle = preload("res://addons/hyperlog/trackers/tracker_angle.tscn")
@@ -94,11 +99,13 @@ func angle(properties = "rotation", node = null):
 	tracker.track(properties, node)
 	return tracker
 
+
 # graph
 @onready var ref_graph = preload("res://addons/hyperlog/trackers/tracker_graph.tscn")
 func add_graph():
 	var tracker = _create_tracker(ref_graph)
 	return tracker
+
 
 func graph(properties, node = null, range_min = null, range_max = null) -> TrackerGraph:
 	var tracker = add_graph()
@@ -109,11 +116,13 @@ func graph(properties, node = null, range_min = null, range_max = null) -> Track
 	tracker.track(properties, node)
 	return tracker
 
+
 # bar
 @onready var ref_bar = preload("res://addons/hyperlog/trackers/tracker_bar.tscn")
 func add_bar():
 	var tracker = _create_tracker(ref_bar)
 	return tracker
+
 
 func bar(properties, range_min:float = 0.0, range_max:float = 10.0, node = null) -> TrackerGraph:
 	var tracker = add_bar()
@@ -121,16 +130,19 @@ func bar(properties, range_min:float = 0.0, range_max:float = 10.0, node = null)
 	tracker.track(properties, node)
 	return tracker
 
+
 # color
 @onready var ref_color = preload("res://addons/hyperlog/trackers/tracker_color.tscn")
 func add_color():
 	var tracker = _create_tracker(ref_color)
 	return tracker
 
+
 func color(properties = "modulate", node = null):
 	var tracker = add_color()
 	tracker.track(properties, node)
 	return tracker
+
 
 func _create_tracker(ref):
 	var tracker = ref.instantiate()
@@ -139,22 +151,26 @@ func _create_tracker(ref):
 	
 	return tracker
 
+
 func set_width(value)->LogContainer:
 	size.x = value
 	return self
 
+
 func offset(value:Vector2)->LogContainer:
 	_offset = value
 	return self
-	
+
 
 func align(horizontal = HORIZONTAL_ALIGNMENT_LEFT, vertical = VERTICAL_ALIGNMENT_TOP)->LogContainer:
 	align_horizontal = horizontal
 	align_vertical = vertical
 	return self
 
+
 func remove_at():
 	HyperLog.remove_log(parent_node)
+
 
 #func show()->LogContainer:
 #	visible = true
@@ -164,9 +180,11 @@ func remove_at():
 #	visible = false
 #	return self
 
+
 func hide_name()->LogContainer:
 	name_label.visible = false
 	return self
+
 
 func show_name()->LogContainer:
 	name_label.visible = true

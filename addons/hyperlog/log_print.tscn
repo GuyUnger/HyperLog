@@ -1,17 +1,15 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://duoh7js70k7fv"]
 
-[ext_resource path="res://addons/hyperlog/log_print.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://addons/hyperlog/log_print.gd" id="1"]
 
-[node name="logger_print" type="ScrollContainer"]
+[node name="LoggerPrint" type="ScrollContainer"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_bottom = -500.0
-minimum_size = Vector2( 200, 100 )
 mouse_default_cursor_shape = 6
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource("1")
 
 [node name="Label" type="Label" parent="."]
-offset_bottom = 14.0
+unique_name_in_owner = true
+layout_mode = 2

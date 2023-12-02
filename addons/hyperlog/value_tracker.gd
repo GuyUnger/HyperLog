@@ -11,6 +11,7 @@ enum {NONE, FORMAT_STRING, INT, BOOL, ROUND, ANGLE}
 var format_type := 0
 var format_string := ""
 
+
 func _init(node:Node,property:String,parent:Node = null):
 	self.node = node
 	var cast_i = property.find(">")
@@ -41,8 +42,10 @@ func _init(node:Node,property:String,parent:Node = null):
 	else:
 		self.property_name = self.property
 
+
 func get_value():
 	return node.get_indexed(property)
+
 
 func format(value):
 	if format_type == NONE:
@@ -61,7 +64,6 @@ func format(value):
 						format_string % value.y, ", ",
 						format_string % value.z,
 					")")
-			printt(value, node.name, format_string)
 			return format_string % value
 		INT:
 			return int(value)
@@ -75,7 +77,7 @@ func format(value):
 			if value is Vector2:
 				return value.angle()
 			return value
-	
+
 
 func store_value():
 	backlog.push_front(get_value())

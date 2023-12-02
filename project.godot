@@ -8,63 +8,11 @@
 
 config_version=5
 
-_global_script_classes=[{
-"base": "PanelContainer",
-"class": &"LogContainer",
-"language": &"GDScript",
-"path": "res://addons/hyperlog/log_container.gd"
-}, {
-"base": "Control",
-"class": &"Tracker",
-"language": &"GDScript",
-"path": "res://addons/hyperlog/trackers/tracker.gd"
-}, {
-"base": "Tracker",
-"class": &"TrackerAngle",
-"language": &"GDScript",
-"path": "res://addons/hyperlog/trackers/tracker_angle.gd"
-}, {
-"base": "Tracker",
-"class": &"TrackerBar",
-"language": &"GDScript",
-"path": "res://addons/hyperlog/trackers/tracker_bar.gd"
-}, {
-"base": "Tracker",
-"class": &"TrackerColor",
-"language": &"GDScript",
-"path": "res://addons/hyperlog/trackers/tracker_color.gd"
-}, {
-"base": "Tracker",
-"class": &"TrackerGraph",
-"language": &"GDScript",
-"path": "res://addons/hyperlog/trackers/tracker_graph.gd"
-}, {
-"base": "Tracker",
-"class": &"TrackerText",
-"language": &"GDScript",
-"path": "res://addons/hyperlog/trackers/tracker_text.gd"
-}, {
-"base": "Resource",
-"class": &"ValueTracker",
-"language": &"GDScript",
-"path": "res://addons/hyperlog/value_tracker.gd"
-}]
-_global_script_class_icons={
-"LogContainer": "",
-"Tracker": "",
-"TrackerAngle": "",
-"TrackerBar": "",
-"TrackerColor": "",
-"TrackerGraph": "",
-"TrackerText": "",
-"ValueTracker": ""
-}
-
 [application]
 
 config/name="HyperLog"
-run/main_scene="res://examples/example_scene_3d.tscn"
-config/features=PackedStringArray("4.0")
+run/main_scene="res://examples/example_scene_2d.tscn"
+config/features=PackedStringArray("4.2")
 config/icon="res://icon.png"
 
 [autoload]
@@ -88,7 +36,7 @@ enabled=PackedStringArray("res://addons/hyperlog/plugin.cfg")
 
 LMB={
 "deadzone": 0.49,
-"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"pressed":false,"double_click":false,"script":null)
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":false,"double_click":false,"script":null)
 ]
 }
 
