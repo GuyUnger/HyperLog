@@ -1,4 +1,5 @@
 # ✨ HyperLog ✨
+*For Godot 4 - [Godot 3 version here](https://github.com/GuyUnger/HyperLog/tree/godot-3)*
 
 **HyperLog** allows you to easily track node variables and information on screen.
 
